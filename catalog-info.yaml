@@ -1,0 +1,31 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: backstage
+  description: A Backstage application.
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+    jenkins.io/job-full-name: tw-backstage-accelerator/backstage-app
+    backstage.io/kubernetes-id: backstage
+    prometheus.io/alert: HighMemoryUsage
+    backstage.io/kubernetes-label-selector: 'app=backstage'
+    backstage.io/adr-location: https://github.com/tw-backstage-accelerator/backstage-app/blob/main/docs/adr
+spec:
+  type: website
+  owner: platform-team
+  lifecycle: experimental
+  system: Platform-Engineering
+  providesApis: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: Platform-Engineering
+  tags:
+    - devops
+    - platform
+    - developer-tools
+spec:
+  owner: platform-team
+  domain: devops

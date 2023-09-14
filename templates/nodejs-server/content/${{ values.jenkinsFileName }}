@@ -1,0 +1,33 @@
+pipeline {
+    agent {
+        kubernetes {
+            inheritFrom 'nodeApp'
+        }
+    }
+    triggers {
+        pollSCM '* * * * *'
+    }
+    stages {
+        stage('Application build') {
+            steps {
+                container('node') {
+                    sh 'npm install'
+                }
+            }
+        }
+        stage('Docker image build') {
+            steps {
+                container('docker') {
+                    sh 'docker build -t ${{ values.name }} .'
+                }
+            }
+        }
+        stage('Cloud deployment') {
+            steps {
+                container('kubectl') {
+                    sh 'kubectl apply -f ./deploy/k8s.yaml'
+                }
+            }
+        }
+    }
+}

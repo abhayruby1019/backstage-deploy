@@ -1,0 +1,38 @@
+name: build-backstage
+on:
+  push:
+
+
+jobs:
+  build-backstage-image:
+    runs-on: ubuntu-latest
+    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Checkout Backstage Repository
+        uses: actions/checkout@v2
+        
+
+      - name: Configure AWS credentials
+        continue-on-error: false
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-region: ap-south-1
+          role-to-assume: role-to-assume: arn:aws:iam::101217072180:role/github-oidc-iam-assume-role #change
+          role-session-name: dev-deploy
+
+      - name: Build Docker Image
+        run: |
+          cd backstage-app
+          yarn install
+          yarn build:backend
+          DOCKER_BUILDKIT=1 docker image build . -f packages/backend/Dockerfile --tag public.ecr.aws/r6i4k7g2/infra-repo:${{ github.sha }}
+      - name: Push docker image to ECR
+        run: |
+          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws
+          docker push public.ecr.aws/r6i4k7g2/infra-repo:${{ github.sha }}

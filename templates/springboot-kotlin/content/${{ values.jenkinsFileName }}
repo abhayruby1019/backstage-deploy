@@ -1,0 +1,33 @@
+pipeline {
+    agent {
+        kubernetes {
+            inheritFrom 'java17App'
+        }
+    }
+    triggers {
+        pollSCM '* * * * *'
+    }
+    stages {
+        stage('Application build') {
+            steps {
+                container('gradle') {
+                    sh 'gradle build -x test'
+                }
+            }
+        }
+        stage('Docker image build') {
+            steps {
+                container('docker') {
+                    sh 'docker build -t ${{ values.name }} .'
+                }
+            }
+        }
+        stage('Cloud deployment') {
+            steps {
+                container('kubectl') {
+                    sh 'kubectl apply -f ./deploy/k8s.yaml'
+                }
+            }
+        }
+    }
+}

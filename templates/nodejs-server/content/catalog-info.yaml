@@ -1,0 +1,17 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ${{ values.name | dump }}
+  description: ${{ values.description }}
+  annotations:
+    jenkins.io/job-full-name: ${{values.destination.owner + "/" + values.destination.repo}}
+    prometheus.io/rule: 'up{service="${{ values.name }}"}'
+    prometheus.io/alert: all
+    backstage.io/techdocs-ref: dir:.
+    'backstage.io/kubernetes-id': '${{ values.name }}'
+    'backstage.io/kubernetes-label-selector': 'app=${{ values.name }}'
+  tags: ["nodejs", "javascript"]
+spec:
+  type: service
+  owner: ${{ values.owner }}
+  lifecycle: experimental

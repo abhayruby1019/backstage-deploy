@@ -1,0 +1,184 @@
+app:
+  title: Backstage App
+  baseUrl: http://0.0.0.0:3000
+
+organization:
+  name: Poonawalla
+
+# Enables oauth2-proxy based auth
+auth:
+  environment: development #change to production to enable oauth auth
+  providers:
+    oauth2Proxy: {}
+
+backend:
+  # Used for enabling authentication, secret is shared by all backend plugins
+  # See https://backstage.io/docs/tutorials/backend-to-backend-auth for
+  # information on the format
+  # auth:
+  #   keys:
+  #     - secret: ${BACKEND_SECRET}
+  baseUrl: http://localhost # ingress domain required
+  listen:
+    port: 7007
+    host: 0.0.0.0
+  csp:
+    connect-src: ["'self'", 'http:', 'https:']
+    # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
+    # Default Helmet Content-Security-Policy values can be removed by setting the key to false
+  cors:
+    origin: http://localhost:3000 #ingress domain
+    methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
+    credentials: true
+  # This is for local development only, it is not recommended to use this in production
+  # The production database configuration is stored in app-config.production.yaml
+  database:
+    client: better-sqlite3
+    connection: ':memory:'
+  cache:
+    store: memory
+  # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
+
+integrations:
+  github:
+    - host: github.com
+      # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
+      # about setting up the GitHub integration here: https://backstage.io/docs/getting-started/configuration#setting-up-a-github-integration
+      token: ${GITHUB_TOKEN}
+    ### Example for how to add your GitHub Enterprise instance using the API:
+    # - host: ghe.example.net
+    #   apiBaseUrl: https://ghe.example.net/api/v3
+    #   token: ${GHE_TOKEN}
+
+# proxy:
+#   '/prometheus/api':
+#     # url to the api and path of your hosted prometheus instance
+#     target: 'http://${PROMETHEUS_SERVER_SERVICE_HOST}:${PROMETHEUS_SERVER_SERVICE_PORT}/api/v1/'
+#     changeOrigin: true
+#     secure: false
+#   '/jenkins/api':
+#     target: 'http://${JENKINS_SERVICE_HOST}:${JENKINS_SERVICE_PORT}'
+#     changeOrigin: true
+
+# jenkins:
+#   baseUrl: 'http://${JENKINS_SERVICE_HOST}:${JENKINS_SERVICE_PORT}'
+#   username: admin
+#   #Fake apiKey - auth is disabled on Jenkins
+#   apiKey: 1145e434d44f8b0836766cea383f481d16 
+
+# prometheus:
+#   proxyPath: /prometheus/api
+  
+kubernetes:
+  objectTypes:
+    - configmaps
+    - deployments
+    - limitranges
+    - pods
+    - services
+    - statefulsets
+    - ingresses
+    - horizontalpodautoscalers
+    - jobs
+    - cronjobs
+  serviceLocatorMethod:
+    type: multiTenant
+  clusterLocatorMethods:
+    - type: config
+      clusters:
+        - url: '${K8S_CLUSTER_URL}'
+          name: minikube
+          authProvider: serviceAccount
+          skipTLSVerify: true
+          skipMetricsLookup: true
+          serviceAccountToken: "${K8S_BACKSTAGE_SA_TOKEN}"
+
+
+# Reference documentation http://backstage.io/docs/features/techdocs/configuration
+# Note: After experimenting with basic setup, use CI/CD to generate docs
+# and an external cloud storage when deploying TechDocs for production use-case.
+# https://backstage.io/docs/features/techdocs/how-to-guides#how-to-migrate-from-techdocs-basic-to-recommended-deployment-approach
+techdocs:
+  builder: 'local' # Alternatives - 'external'
+  generator:
+    runIn: 'local' # Alternatives - 'local'
+  publisher:
+    type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
+
+# auth:
+#   providers:
+#     github:
+#       development:
+#         clientId: ${GITHUB_AUTH_CLIENTID}
+#         clientSecret: ${GITHUB_AUTH_CLIENT_SECRET}
+
+scaffolder:
+  # see https://backstage.io/docs/features/software-templates/configuration for software template options
+
+catalog:
+  import:
+    entityFilename: catalog-info.yaml
+    pullRequestBranchName: backstage-integration
+  rules:
+    - allow:
+      - Component
+      - API
+      - Resource
+      - Template
+      - System
+      - Domain
+      - Location
+  providers:
+    github:
+      # the provider ID can be any camelCase string
+      pfinGithubId:
+        organization: 'twlabs'
+        catalogPath: '/catalog-info.yaml'
+        filters:
+          branch: 'main'
+          repository: '.*' # Regex
+        schedule:
+          frequency: { minutes: 30 }
+          timeout: { minutes: 10 }
+  locations:
+    - type: file
+      target: ../../catalog-info.yaml
+    # Local example data, file locations are relative to the backend process, typically `packages/backend`
+    - type: file
+      target: ../../examples/entities.yaml
+
+    Refer to local file path for faster development
+    - type: file
+      target: ../../../templates/all-templates.yaml
+      rules:
+        - allow: [Template]
+
+    # Disable if above local file path is enabled
+    # location kind type templates are not currently discoverable so provide a static configuration
+    # - type: url
+    #   target: 'https://github.com/tw-backstage-accelerator/templates/blob/main/all-templates.yaml'
+    #   rules:
+    #     - allow: [Template]
+    
+    # - type: url
+    #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-components.yaml
+
+    # # Backstage example systems
+    # - type: url
+    #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-systems.yaml
+
+
+    # # Backstage example APIs
+    # - type: url
+    #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-apis.yaml
+
+    # # Backstage example resources
+    # - type: url
+    #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-resources.yaml
+
+    # # Backstage example organization groups
+    # - type: url
+    #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/acme/org.yaml
+    #   rules:
+    #      - allow: [User, Group]
+

@@ -1,0 +1,9 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: all-templates
+  description: A collection of all Backstage templates
+spec:
+  targets:
+    - ./springboot-kotlin/template.yaml
+    - ./nodejs-server/template.yaml

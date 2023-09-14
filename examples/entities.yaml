@@ -1,0 +1,273 @@
+---
+# https://backstage.io/docs/features/software-catalog/descriptor-format#kind-system
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: Payments
+  description: Payments system umberella
+  tags:
+    - payments
+spec:
+  owner: x-men
+  domain: payments
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: accounts-db
+  description: Stores accounts/customer details
+spec:
+  type: database
+  owner: marvel
+  system: Payments
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: users-db
+  description: Stores users details
+spec:
+  type: database
+  owner: marvel
+  system: Payments
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: payments-db
+  description: Stores payments details
+spec:
+  type: database
+  owner: x-men
+  system: Payments
+---
+# https://backstage.io/docs/features/software-catalog/descriptor-format#kind-component
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: accounts
+  description: Provides core payment features e.g, NEFT, RTGS, IMPS fund transfers
+  annotations:
+     'backstage.io/kubernetes-id': accounts
+     'backstage.io/kubernetes-label-selector': 'app=accounts'
+spec:
+  type: service
+  lifecycle: production
+  owner: marvel
+  system: Payments
+  providesApis: [accounts-api]
+  dependsOn:
+  - Resource:accounts-db
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: users
+  description: Provides core payment features e.g, NEFT, RTGS, IMPS fund transfers
+  annotations:
+     'backstage.io/kubernetes-id': users
+     'backstage.io/kubernetes-label-selector': 'app=users'
+spec:
+  type: service
+  lifecycle: production
+  owner: marvel
+  system: Payments
+  providesApis: [users-api]
+  dependsOn:
+  - Resource:users-db
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: payments-core
+  description: Provides core payment features e.g, NEFT, RTGS, IMPS fund transfers
+  annotations:
+     'backstage.io/kubernetes-id': payments-core
+     'backstage.io/kubernetes-label-selector': 'app=payments-core'
+spec:
+  type: service
+  lifecycle: production
+  owner: x-men
+  system: Payments
+  providesApis: [payments-core-api]
+  consumesApis:
+  - accounts-api
+  dependsOn:
+  - Resource:payments-db
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: upi-payments
+  description: Provides UPI fundtransfer features
+  annotations:
+     'backstage.io/kubernetes-id': upi-payments
+     'backstage.io/kubernetes-label-selector': 'app=upi-payments'
+spec:
+  type: service
+  lifecycle: production
+  owner: x-men
+  system: Payments
+  providesApis: [upi-payments-api]
+  subcomponentOf: payments-core
+  dependsOn:
+  - Resource:payments-db
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: merchant-payments
+  description: Provides merchant based collection, bulk payments features
+  annotations:
+     'backstage.io/kubernetes-id': merchant-payments
+     'backstage.io/kubernetes-label-selector': 'app=merchant-payments'
+spec:
+  type: service
+  lifecycle: production
+  owner: x-men
+  system: Payments
+  providesApis: [merchant-payments-api]
+  subcomponentOf: payments-core
+  dependsOn:
+  - Resource:payments-db
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: tax-payments
+  description: Provides tax payment featuers e.g., GST, Custom duty, Advanced Tax, etc.,
+  annotations:
+     'backstage.io/kubernetes-id': tax-payments
+     'backstage.io/kubernetes-label-selector': 'app=tax-payments'
+spec:
+  type: service
+  lifecycle: production
+  owner: x-men
+  system: Payments
+  providesApis: [tax-payments-api]
+  subcomponentOf: payments-core
+  dependsOn:
+  - Resource:payments-db
+---
+# https://backstage.io/docs/features/software-catalog/descriptor-format#kind-api
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: payments-core-api
+spec:
+  type: grpc
+  lifecycle: production
+  owner: x-men
+  system: Payments
+  definition: |
+    syntax = "proto3";
+
+    service Exampler {
+      rpc Example (ExampleMessage) returns (ExampleMessage) {};
+    }
+
+    message ExampleMessage {
+      string example = 1;
+    };
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: upi-payments-api
+spec:
+  type: grpc
+  lifecycle: production
+  owner: x-men
+  system: Payments
+  definition: |
+    syntax = "proto3";
+
+    service Exampler {
+      rpc Example (ExampleMessage) returns (ExampleMessage) {};
+    }
+
+    message ExampleMessage {
+      string example = 1;
+    };
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: merchant-payments-api
+spec:
+  type: grpc
+  lifecycle: production
+  owner: x-men
+  system: Payments
+  definition: |
+    syntax = "proto3";
+
+    service Exampler {
+      rpc Example (ExampleMessage) returns (ExampleMessage) {};
+    }
+
+    message ExampleMessage {
+      string example = 1;
+    };
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: tax-payments-api
+spec:
+  type: grpc
+  lifecycle: production
+  owner: x-men
+  system: Payments
+  definition: |
+    syntax = "proto3";
+
+    service Exampler {
+      rpc Example (ExampleMessage) returns (ExampleMessage) {};
+    }
+
+    message ExampleMessage {
+      string example = 1;
+    };
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: accounts-api
+spec:
+  type: grpc
+  lifecycle: production
+  owner: marvel
+  system: Payments
+  definition: |
+    syntax = "proto3";
+
+    service Exampler {
+      rpc Example (ExampleMessage) returns (ExampleMessage) {};
+    }
+
+    message ExampleMessage {
+      string example = 1;
+    };
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: users-api
+spec:
+  type: grpc
+  lifecycle: production
+  owner: marvel
+  system: Payments
+  definition: |
+    syntax = "proto3";
+
+    service Exampler {
+      rpc Example (ExampleMessage) returns (ExampleMessage) {};
+    }
+
+    message ExampleMessage {
+      string example = 1;
+    };
+---
+

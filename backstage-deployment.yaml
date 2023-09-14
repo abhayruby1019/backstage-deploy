@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-demo
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-demo
+  template:
+    metadata:
+      labels:
+        app: hello-demo
+    spec:
+      containers:
+        - name: hello-demo
+          image: hello-service-demo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8000
