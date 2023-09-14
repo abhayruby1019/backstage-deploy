@@ -23,7 +23,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-region: ap-south-1
-          role-to-assume: role-to-assume: arn:aws:iam::101217072180:role/github-oidc-iam-assume-role #change
+          role-to-assume: arn:aws:iam::101217072180:role/github-oidc-iam-assume-role #change
           role-session-name: dev-deploy
 
       - name: Build Docker Image
