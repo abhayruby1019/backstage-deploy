@@ -18,7 +18,7 @@ backend:
   # auth:
   #   keys:
   #     - secret: ${BACKEND_SECRET}
-  baseUrl: http://localhost # ingress domain required
+  baseUrl: http://localhost:7007 # ingress domain required
   listen:
     port: 7007
     host: 0.0.0.0
@@ -146,9 +146,13 @@ catalog:
     # Local example data, file locations are relative to the backend process, typically `packages/backend`
     - type: file
       target: ../../examples/entities.yaml
+    - type: file
+      target: ../../examples/org.yaml
+      rules:
+        - allow: [ User, Group ]
     #Refer to local file path for faster development
     - type: file
-      target: ../../../templates/all-templates.yaml
+      target: ../../templates/all-templates.yaml
       rules:
         - allow: [Template]
 
