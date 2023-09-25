@@ -10,7 +10,7 @@ metadata:
     backstage.io/kubernetes-id: backstage
     prometheus.io/alert: HighMemoryUsage
     backstage.io/kubernetes-label-selector: 'app=backstage'
-    backstage.io/adr-location: https://github.com/tw-backstage-accelerator/backstage-app/blob/main/docs/adr
+#    backstage.io/adr-location: https://github.com/tw-backstage-accelerator/backstage-app/blob/main/docs/adr
 spec:
   type: website
   owner: platform-team
