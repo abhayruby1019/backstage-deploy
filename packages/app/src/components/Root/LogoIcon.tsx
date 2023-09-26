@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
-import TwLogoIcon from './logo/tw.logo.icon.png';
+import PwLogoIcon from './logo/poonawalla.logo.icon.jpeg';
 
 const useStyles = makeStyles({
   logo: {
@@ -16,7 +16,7 @@ const LogoIcon = () => {
 
   return (
     // eslint-disable-next-line jsx-a11y/alt-text
-    <img className={classes.logo} src={TwLogoIcon}/>
+    <img className={classes.logo} src={PwLogoIcon}/>
   );
 };
 

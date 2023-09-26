@@ -22,12 +22,12 @@ const baseTheme = createTheme({
             primary: '#666666',
         },
         primary: {
-            main: '#003D4F',
+            main: '#263D76',
             light: '#FF0000',
-            dark: '#172B4D',
+            dark: '#4A62A6',
         },
         secondary: {
-            main: '#003D4F',
+            main: '#263D76',
             light: '#FFAB00',
             dark: '#6554C0',
         },
@@ -36,11 +36,11 @@ const baseTheme = createTheme({
         },
         navigation: {
             ...lightTheme.palette.navigation,
-            background: '#003d4f',
+            background: '#263D76',
             color: '#FFFFFF',
             indicator: '#666666',
             navItem: {
-                hoverBackground: '#46a1ac',
+                hoverBackground: '#4A62A6',
             },
         },
     },
@@ -54,17 +54,18 @@ const createCustomThemeOverrides = (
     return {
         BackstageHeader: {
             header: {
-                backgroundImage: `url(${Background2})`,
+                backgroundImage: 'none',
+                backgroundColor: '#263D76',
                 boxShadow: 'unset',
                 paddingBottom: theme.spacing(1),
                 height: '100px',
             },
             title: {
-                color: '#003D4F',
+                color: '#FFFFFF',
                 fontWeight: 500,
             },
             subtitle: {
-                color: '#f2617a',
+                color: '#FFFFFF',
                 fontWeight: 500,
                 fontSize: '1rem',
             },

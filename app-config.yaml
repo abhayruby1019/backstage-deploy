@@ -33,11 +33,12 @@ backend:
   # This is for local development only, it is not recommended to use this in production
   # The production database configuration is stored in app-config.production.yaml
   database:
-    client: better-sqlite3
-    connection: ':memory:'
-  cache:
-    store: memory
-  # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
+    client: mysql
+    connection:
+      host: ${MYSQL_HOST}
+      port: ${MYSQL_PORT}
+      user: ${MYSQL_USER}
+      password: ${MYSQL_PASSWORD}
 
 integrations:
   github:
