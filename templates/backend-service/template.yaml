@@ -2,9 +2,9 @@ apiVersion: scaffolder.backstage.io/v1beta3
 # https://backstage.io/docs/features/software-catalog/descriptor-format#kind-template
 kind: Template
 metadata:
-  name: frontend
-  title: Frontend App
-  description: boilerplate using nextjs and react.
+  name: Backend
+  title: Backend Service
+  description: A Boilerplate using nestjs
 spec:
   owner: group:guests
   type: service

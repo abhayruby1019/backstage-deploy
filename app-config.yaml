@@ -160,6 +160,10 @@ catalog:
       target: ../../templates/frontend/template.yaml
       rules:
         - allow: [ Template ]
+    - type: file
+      target: ../../templates/backend-service/template.yaml
+      rules:
+        - allow: [ Template ]
 
     # Disable if above local file path is enabled
     # location kind type templates are not currently discoverable so provide a static configuration
