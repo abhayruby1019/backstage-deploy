@@ -6,7 +6,7 @@ FROM base AS dependencies
 
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
-RUN pnpm install
+RUN pnpm i --frozen-lockfile
 
 FROM base AS build
 
