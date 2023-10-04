@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ValuesNameController } from './${{values.name}}.controller';
-import { ValuesNameService } from './${{values.name}}.service';
+import { ValuesNameController } from '../${{values.name}}.controller';
+import { ValuesNameService } from '../${{values.name}}.service';
 
 describe('UserController', () => {
   let userController: ValuesNameController;

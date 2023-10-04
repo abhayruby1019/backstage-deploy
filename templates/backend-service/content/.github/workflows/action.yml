@@ -48,8 +48,8 @@ jobs:
           role-session-name: dev-deploy
       - name: Build Docker Image
         run: |
-          DOCKER_BUILDKIT=1 docker image build . -f Dockerfile --tag public.ecr.aws/r6i4k7g2/infra-repo:${{ github.sha }}
+          DOCKER_BUILDKIT=1 docker image build . -f Dockerfile --tag 101217072180.dkr.ecr.ap-south-1.amazonaws.com/backend-repo:${{ github.sha }}
       - name: Push docker image to ECR
         run: |
-          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws
-          docker push public.ecr.aws/r6i4k7g2/infra-repo:${{ github.sha }}
+          aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 101217072180.dkr.ecr.ap-south-1.amazonaws.com
+          docker push 101217072180.dkr.ecr.ap-south-1.amazonaws.com/backend-repo:${{ github.sha }}
