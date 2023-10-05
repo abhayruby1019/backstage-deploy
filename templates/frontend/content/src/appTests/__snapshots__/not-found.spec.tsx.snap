@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotFound should display technical error when type is not passed 1`] = `
+<div>
+  <div
+    class="mainError"
+  >
+    <div
+      class="title"
+    >
+      Page Not Found
+    </div>
+    <a
+      class="link"
+      href="/"
+    >
+      Return Home
+    </a>
+  </div>
+</div>
+`;

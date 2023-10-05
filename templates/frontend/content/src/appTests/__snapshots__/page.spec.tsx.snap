@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home Page RSC should display technical error when type is not passed 1`] = `
+<div>
+  <main
+    class="main"
+  >
+    <h1>
+      Poonawala Fincop Ltd - demo
+    </h1>
+  </main>
+</div>
+`;

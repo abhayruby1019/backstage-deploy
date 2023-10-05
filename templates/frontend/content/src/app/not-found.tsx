@@ -1,10 +1,9 @@
-import Link from 'next/link'
+import Error from '@/components/Error/Error'
 
 export default function NotFound() {
   return (
-    <div>
-      <h2>Not Found</h2>
-      <Link href="/">Return Home</Link>
-    </div>
+    <>
+      <Error type="notFound" />
+    </>
   )
 }

@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## temporary-frontend
 
-## Getting Started
+_Handles following journeys_
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 📍 Tech Stack
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. **React** : v18.2.0
+2. **React** : v13
+3. **Node/PNPM**: v20/v8
+4. **Jest**
+5. **RTL**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 📍 Pre-requisites
 
-## Learn More
+1. **Node JS** : Check node version.
 
-To learn more about Next.js, take a look at the following resources:
+- Preferable use nvm to go to a specific node version
+  ```
+  nvm install v20 (first time only)
+  nvm use v20
+  ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **PNPM** : This locks the version of the packages used so that version issues do not appear.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Install Pnpm (if not present) `brew install pnpm`
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 📍 Local Development
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+_Install the dependencies and devDependencies and start the server._
+
+1. `pnpm install`
+2. `pnpm dev`
+
+_Updating docker image_
+
+1. `pnpm build:docker`
+2. update docker image : `docker run -p 3001:3001 demo`
+
+### 📍 Commit/Push Changes
+
+- Run tests from command line with (at the root of project):
+
+  ```
+  pnpm test
+  ```
+
+- Monitor the `Poonawalla-Fincorp-Temporary-Repo-Frontend` action for a green build post pushing your changes
+
+---
+
+### 📍 Best practices

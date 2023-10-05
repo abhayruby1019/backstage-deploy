@@ -1,6 +1,8 @@
 'use client'
 
+import pageLabels from './HomePage.labels'
+
 export default function HomePage() {
-  // throw new Error('Error')
-  return <h1>Poonawala Fincop Ltd</h1>
+  const labels = pageLabels('')
+  return <h1>{labels.title}</h1>
 }

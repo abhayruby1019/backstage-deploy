@@ -1,0 +1,19 @@
+.mainError {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  /*min-height: 100vh;*/
+}
+
+.title {
+  font-size: calc(32px + 0.4vw);
+  padding-top: 6rem;
+}
+
+.link {
+  font-size: 20px;
+  padding-top: 20px;
+  color: rgb(34, 58, 114);
+}
