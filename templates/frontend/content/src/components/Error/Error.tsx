@@ -11,7 +11,7 @@ const Error = ({ type = 'systemFailure' }: ErrorProps) => {
     <div className={styles.mainError}>
       <div className={styles.title}>{labels[type]}</div>
       <Link href="/" className={styles.link}>
-        Return Home
+        Go Home
       </Link>
     </div>
   )
