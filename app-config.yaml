@@ -1,6 +1,6 @@
 app:
   title: Backstage App
-  baseUrl: http://af63a590d6be44c4c9ac9717c59da218-7febe2ce6fe5e5d5.elb.ap-south-1.amazonaws.com
+  baseUrl: https://af63a590d6be44c4c9ac9717c59da218-7febe2ce6fe5e5d5.elb.ap-south-1.amazonaws.com
 
 organization:
   name: Poonawalla
@@ -18,7 +18,7 @@ backend:
   # auth:
   #   keys:
   #     - secret: ${BACKEND_SECRET}
-  baseUrl: http://af63a590d6be44c4c9ac9717c59da218-7febe2ce6fe5e5d5.elb.ap-south-1.amazonaws.com # ingress domain required
+  baseUrl: https://af63a590d6be44c4c9ac9717c59da218-7febe2ce6fe5e5d5.elb.ap-south-1.amazonaws.com # ingress domain required
   listen:
     port: 7007
     host: 0.0.0.0
@@ -27,7 +27,7 @@ backend:
     # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
     # Default Helmet Content-Security-Policy values can be removed by setting the key to false
   cors:
-    origin: http://af63a590d6be44c4c9ac9717c59da218-7febe2ce6fe5e5d5.elb.ap-south-1.amazonaws.com #ingress domain
+    origin: https://af63a590d6be44c4c9ac9717c59da218-7febe2ce6fe5e5d5.elb.ap-south-1.amazonaws.com #ingress domain
     methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
     credentials: true
   # This is for local development only, it is not recommended to use this in production
