@@ -18,7 +18,7 @@ backend:
   # auth:
   #   keys:
   #     - secret: ${BACKEND_SECRET}
-  baseUrl: http://af63a590d6be44c4c9ac9717c59da218-7febe2ce6fe5e5d5.elb.ap-south-1.amazonaws.com/ # ingress domain required
+  baseUrl: http://af63a590d6be44c4c9ac9717c59da218-7febe2ce6fe5e5d5.elb.ap-south-1.amazonaws.com # ingress domain required
   listen:
     port: 7007
     host: 0.0.0.0
