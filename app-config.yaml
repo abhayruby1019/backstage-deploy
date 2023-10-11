@@ -147,25 +147,25 @@ catalog:
           timeout: { minutes: 10 }
   locations:
     - type: file
-      target: ../../catalog-info.yaml
+      target: /app/catalog-info.yaml
     # Local example data, file locations are relative to the backend process, typically `packages/backend`
     - type: file
-      target: ../../examples/entities.yaml
+      target: /app/examples/entities.yaml
     - type: file
-      target: ../../examples/org.yaml
+      target: /app/examples/org.yaml
       rules:
         - allow: [ User, Group ]
     #Refer to local file path for faster development
     - type: file
-      target: ../../templates/all-templates.yaml
+      target: /app/templates/all-templates.yaml
       rules:
         - allow: [Template]
     - type: file
-      target: ../../templates/frontend/template.yaml
+      target: /app/templates/frontend/template.yaml
       rules:
         - allow: [ Template ]
     - type: file
-      target: ../../templates/backend-service/template.yaml
+      target: /app/templates/backend-service/template.yaml
       rules:
         - allow: [ Template ]
 
