@@ -23,9 +23,8 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-region: ap-south-1
-          role-to-assume: arn:aws:iam::role/github-oidc-iam-assume-role #change
-          role-session-name: dev-deploy
-
+          role-to-assume: arn:aws:eks:ap-south-1:500440857146:cluster/PFL-DEV-APP-digital-Platform
+          role-session-name: PFL-DEV-APP-digital-Platform
       - name: Build Docker Image
         run: |
           yarn install
@@ -33,5 +32,5 @@ jobs:
           DOCKER_BUILDKIT=1 docker image build . -f packages/backend/Dockerfile --tag public.ecr.aws/r6i4k7g2/infra-repo:${{ github.sha }}
       - name: Push docker image to ECR
         run: |
-          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws
+          aws ecr-public get-login-password --region ap-south-1 | docker login --username AWS --password-stdin public.ecr.aws
           docker push public.ecr.aws/xxxxxxxxxx/infra-repo:${{ github.sha }}
