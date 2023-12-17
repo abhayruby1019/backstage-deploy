@@ -23,7 +23,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-region: ap-south-1
-          role-to-assume: arn:aws:iam::101217072180:role/github-oidc-iam-assume-role #change
+          role-to-assume: arn:aws:iam::role/github-oidc-iam-assume-role #change
           role-session-name: dev-deploy
 
       - name: Build Docker Image
@@ -34,4 +34,4 @@ jobs:
       - name: Push docker image to ECR
         run: |
           aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws
-          docker push public.ecr.aws/r6i4k7g2/infra-repo:${{ github.sha }}
+          docker push public.ecr.aws/xxxxxxxxxx/infra-repo:${{ github.sha }}
