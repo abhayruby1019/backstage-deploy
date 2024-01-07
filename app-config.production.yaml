@@ -1,6 +1,6 @@
 app:
   # Should be the same as backend.baseUrl when using the `app-backend` plugin.
-  baseUrl: http://localhost:7007
+  baseUrl: http://Backstage-application-LB-2005410317.ap-south-1.elb.amazonaws.com:7007
 
 # Enables oauth2-proxy based auth
 auth:
